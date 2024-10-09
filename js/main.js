@@ -10,10 +10,38 @@ form.addEventListener('submit', function (event) {
   const orderItemPrice = parseFloat(formElements['order-item-price'].value);
   const orderSize = formElements['order-size'].value;
 
-  if (isValueNotEmpty(orderItemName) && isGreaterThanFive(orderItemPrice) && isValueNotEmpty(orderSize)) {
-    addOrderItem(orderItemName, orderItemPrice, orderSize);
+  let isFormValid = true;
+
+  
+  if (isValueNotEmpty(orderItemName)) {
+    formElements['order-item-name'].classList.remove('is-invalid');
   } else {
-    console.log("Please provide valid input for all fields.");
+    formElements['order-item-name'].classList.add('is-invalid');
+    isFormValid = false;
+  }
+
+  
+  if (!isNaN(orderItemPrice) && isGreaterThanFive(orderItemPrice)) {
+    formElements['order-item-price'].classList.remove('is-invalid');
+  } else {
+    formElements['order-item-price'].classList.add('is-invalid');
+    isFormValid = false;
+  }
+
+ 
+  if (isValueNotEmpty(orderSize)) {
+    formElements['order-size'].classList.remove('is-invalid');
+  } else {
+    formElements['order-size'].classList.add('is-invalid');
+    isFormValid = false;
+  }
+
+ 
+  if (isFormValid) {
+    addOrderItem(orderItemName, orderItemPrice, orderSize);
+
+    
+    form.reset();
   }
 });
 
