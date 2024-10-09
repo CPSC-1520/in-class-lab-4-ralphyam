@@ -1,6 +1,21 @@
 
 // Enter your code below.
+const form = document.querySelector('#new-order-form');
 
+form.addEventListener('submit', function (event) {
+  event.preventDefault();
+
+  const formElements = event.target.elements;
+  const orderItemName = formElements['order-item-name'].value;
+  const orderItemPrice = parseFloat(formElements['order-item-price'].value);
+  const orderSize = formElements['order-size'].value;
+
+  if (isValueNotEmpty(orderItemName) && isGreaterThanFive(orderItemPrice) && isValueNotEmpty(orderSize)) {
+    addOrderItem(orderItemName, orderItemPrice, orderSize);
+  } else {
+    console.log("Please provide valid input for all fields.");
+  }
+});
 
 // functions needed for assessment (do not change.)
 
